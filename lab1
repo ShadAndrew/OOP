@@ -1,0 +1,50 @@
+#include <iostream>
+#include <math.h>
+#include <conio.h>
+using namespace std;
+class Star
+{
+private:
+        float a;
+        float b;
+public:
+    Star() //консруктор без параметрів
+    {
+        cout<<"Start of calculation"<<endl;
+        this->a = 0;
+        this->b = 0;
+    }
+    Star (float a, float b) //конструктор з параметрами
+    {
+        this->a = a;
+        this->b = b;
+    }
+    ~Star() //деструктор
+    {
+        this->a = 0;
+        this->b = 0;
+        cout<<"End of calculation"<<endl;        
+    }
+    void print_sqr() //функція print_sqr 
+    {
+        double s;
+        double s_triagle;
+        double s_star;
+        s_triagle = b * b;
+        s_star = 0.5*((a-b/2)/2)*b;
+        s=s_triagle+4*s_star;
+        cout<<"\nA="<<a<<"\nB="<<b<<endl;
+        cout<<"\nS="<<s<<endl;
+
+    }
+};
+    int main()
+    {
+        Star example1(2, 3);
+        Star example2(4.5, 6.5);
+        example1.print_sqr();
+    
+        Star newExample = (example1,example2);
+        newExample.print_sqr();
+        return 0;
+    }
