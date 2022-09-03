@@ -1,0 +1,50 @@
+#include <iostream>
+#include <math.h>
+#include <conio.h>
+using namespace std;
+
+ class Cone
+{
+    private:
+            double height, radius;
+    public:
+        Cone()
+        {
+            this->height = 0;
+            this->radius = 0;
+        }
+
+        Cone(double height, double radius)
+        {
+            this->height = height;
+            this->radius = radius;
+        }
+
+        void print_val()
+        {
+            double V;
+            const double P = 3.141592;
+            V = (P * pow(radius, 2)*height/3);
+            cout << "\nHeight = " << height << "\nRadius = " << radius << "\nV = " << V << endl;
+        }
+
+           friend Cone frd(const Cone& first, const Cone& second)
+        {
+            Cone tmp;
+            tmp.height = first.height + second.height;
+            tmp.radius = max(first.radius, second.radius);
+            return tmp;
+        }
+
+        
+};
+        int main()
+{
+        Cone example1(5, 7);
+        Cone example2(6,10);
+        example1.print_val();
+    
+        Cone newExample = frd(example1, example2);
+        newExample.print_val();
+        return 0;
+}
