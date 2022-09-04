@@ -10,7 +10,6 @@ private:
 public:
     Star() //консруктор без параметрів
     {
-        cout<<"Start of calculation"<<endl;
         this->a = 0;
         this->b = 0;
     }
@@ -22,8 +21,7 @@ public:
     ~Star() //деструктор
     {
         this->a = 0;
-        this->b = 0;
-        cout<<"End of calculation"<<endl;        
+        this->b = 0;      
     }
     void print_sqr() //функція print_sqr 
     {
@@ -33,8 +31,8 @@ public:
         s_triagle = b * b;
         s_star = 0.5*((a-b/2)/2)*b;
         s=s_triagle+4*s_star;
-        cout<<"\nA="<<a<<"\nB="<<b<<endl;
-        cout<<"\nS="<<s<<endl;
+        cout<<"A = "<<a<<"\tB = "<<b<<endl;
+        cout<<"S = "<<s<<endl;
 
     }
 };
