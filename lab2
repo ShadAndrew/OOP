@@ -1,7 +1,7 @@
 #include <iostream>
 #include <math.h>
 #include <conio.h>
-using namespace std;
+ using namespace std;
 
  class Cone
 {
@@ -25,7 +25,7 @@ using namespace std;
             double V;
             const double P = 3.141592;
             V = (P * pow(radius, 2)*height/3);
-            cout << "\nHeight = " << height << "\nRadius = " << radius << "\nV = " << V << endl;
+            cout << "Height = " << height << "\tRadius = " << radius << "\tV = " << V << endl;
         }
 
            friend Cone frd(const Cone& first, const Cone& second)
@@ -43,7 +43,8 @@ using namespace std;
         Cone example1(5, 7);
         Cone example2(6,10);
         example1.print_val();
-    
+        example2.print_val();
+        cout << "\t______Friendly function______" << endl;
         Cone newExample = frd(example1, example2);
         newExample.print_val();
         return 0;
