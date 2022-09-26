@@ -1,0 +1,56 @@
+#include <list>
+#include <iostream>
+#include <ctime>
+using namespace std;
+class Array {
+private:
+    list<int> nums;
+public:
+    Array(int n) {
+        srand(time(0));
+        for (int i = 0; i < n; i++) {
+            int val = rand() % 15+1;
+            if (val % 2 == 0) {
+                nums.push_front(val-5);
+            } else {
+                nums.push_front(val);
+            }
+        }
+    }
+
+    ~Array() {
+        nums.clear();
+        nums.empty();
+    }
+
+    list<int> getNums() {
+        return nums;
+    }
+
+    void printElements() {
+        for (int n: nums) {
+            cout << n << " ";
+        }
+    }
+};
+
+
+int ListOfCoupleElements(Array a) {
+    int count = 0;
+    list<int> nums = a.getNums();
+    for (int n: nums) 
+    {
+        if (n % 2 == 0) {
+            count++;
+        }
+    } return count;
+}
+
+int main() {
+    Array array(8);
+    array.printElements();
+    int res = ListOfCoupleElements(array);
+    cout << endl;
+    cout << "Result:" << res << endl;
+
+}
