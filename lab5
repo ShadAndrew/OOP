@@ -1,0 +1,84 @@
+#include <iostream>
+#include <cmath>
+#include <conio.h>
+ using namespace std;
+
+ class Cone
+{
+    private:
+            double radius, height;
+    public:
+        Cone()
+        {
+            this->radius =0;
+            this->height =  0;
+        }
+
+        Cone(double height, double radius)
+        {
+            this->radius = radius;
+            this->height = height;
+        }
+
+        float Volume()
+        {
+            this->radius = radius;
+            this->height = height;
+            float V = (M_PI * pow(radius, 2)*height/3);
+            return V;
+        }
+        
+        Cone operator ++ (int)//постфіксний інкремент
+        {
+            Cone t = *this;
+            radius++;
+            height++;
+            return t;
+        }
+        Cone operator ++()//префіксний інкремент
+        {
+            radius++;
+            height++;
+            return *this;
+        }
+
+        friend ostream& operator << (ostream& os, Cone& obj);
+        friend Cone operator + (Cone obj1, Cone obj2);        
+};
+
+        ostream& operator << (ostream& os, Cone& obj)
+        {
+            return os << "\nradius = " << obj.radius << "\nheight = " << obj.height << "\nV = " << obj.Volume() << endl << endl;
+        }
+
+        Cone operator + (Cone obj1, Cone obj2)
+        {
+            Cone obj3;
+            obj3.radius = obj1.radius + obj2.radius;
+            obj3.height = obj1.height + obj2.height;
+            return obj3;
+        }
+
+        int main()
+{
+            float radius, height;
+            cout << "Enter first object height and radius" << endl;
+            cin >> radius >> height;
+            Cone Cone_1 = Cone(radius, height);
+            cout << "First object " << Cone_1;
+            cout << "Enter second object height and radius" << endl;
+            cin >> radius >> height;
+            Cone Cone_2 = Cone(radius, height);
+            cout << "Second object " << Cone_2;
+            Cone Cone_3;
+            Cone_3 = Cone_1 + Cone_2;
+            cout << "First + Second " << Cone_3 << endl;
+            Cone_1++;
+            cout << "The result of the postfix increment for the first objec\n" << Cone_1;
+            ++Cone_2;
+            cout << "The result of the prefix increment for the second object\n" << Cone_2;
+            Cone Clock_4 = ++Cone_3;
+            cout << "The result of the prefix increment for second + first object\n" << Clock_4 << endl;
+            Cone Clock_5 = Cone_3++;
+            cout << "The result of the postfix increment for second + first object\n" << Clock_5;
+}
