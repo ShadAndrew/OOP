@@ -1,1 +1,87 @@
-f
+#include <iostream>
+#include <list>
+
+using namespace std;
+
+class Persona
+{
+    protected:
+        string Name, Surname;
+        int Age;
+    public:
+        Persona()
+        {
+            this->Age = 0;
+            this->Name = "";
+            this->Surname = "";
+        }
+        Persona(string Name, string Surname, int Age)
+        {
+            this->Age = Age;
+            this->Name = Name;
+            this->Surname = Surname;
+        }
+        ~Persona()
+        {
+
+        }
+        void Print_info()
+        {
+            cout << "\nName: " << Name << "\nSurname: " << Surname << "\nAge: " << Age << endl;
+        }
+};
+
+class Employee: protected Persona
+{
+    protected:
+        int exp;
+    public:
+        Employee()
+        {
+            this->exp = 2; 
+        }
+        Employee(int exp)
+        {
+            this->exp = exp;
+        }
+        ~Employee()
+        {
+
+        }
+        void Print_info()
+        {
+            cout << "Exp: " << exp << endl;
+        }
+};
+class Engineer: protected Employee
+{
+    private:
+        string work_place;
+    public:
+        Engineer()
+        {
+            this->work_place = "sdgdsg";
+        }
+        Engineer (string work_place)
+        {
+            this->work_place = work_place;
+        }
+        ~Engineer()
+        {
+            
+        }
+        void Print_info()
+        {
+            cout << "Work place: " << work_place <<endl;
+        }
+};
+
+int main()
+{
+    Persona pt("Andrew", "Shadura", 18);
+    pt.Print_info();
+    Employee emp(3);
+    emp.Print_info();
+    Engineer eng("sdffs");
+    eng.Print_info();
+}
