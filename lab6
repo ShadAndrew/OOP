@@ -1,9 +1,12 @@
+/*
+Спадкування: службовець, персона, робітник, інженер
+*/
 #include <iostream>
 #include <list>
 
 using namespace std;
 
-class Persona
+class Persona // базовий клас
 {
     protected:
         string Name, Surname;
