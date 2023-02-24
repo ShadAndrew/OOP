@@ -50,3 +50,35 @@ class Program {
         } while (true);
     }
 }
+
+/*
+Ввести врожайність трьох сортів пшениці (36, 40, 44 т/га) і розміри
+трьох відповідних полів (у га). Скільки зібрали пшениці з кожного поля й зі
+всіх разом?
+*/
+
+using System;
+
+class Program {
+    static void Main(string[] args) {
+        double[] yield = new double[3]; // Масив для зберігання врожайності
+        double[] area = new double[3]; // Масив для зберігання площі полів
+
+        // Введення даних
+        for (int i = 0; i < 3; i++) {
+            Console.Write($"Введіть врожайність {i+1}-го сорту пшениці: ");
+            yield[i] = Convert.ToDouble(Console.ReadLine());
+            Console.Write($"Введіть площу {i+1}-го поля: ");
+            area[i] = Convert.ToDouble(Console.ReadLine());
+        }
+
+        // Обчислення загальної врожайності
+        double totalYield = 0;
+        for (int i = 0; i < 3; i++) {
+            totalYield += yield[i] * area[i];
+        }
+
+        // Виведення результату
+        Console.WriteLine($"Загальна врожайність: {totalYield} тонн.");
+    }
+}
