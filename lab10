@@ -1,0 +1,153 @@
+/*
+Останній від'ємний елемент поміняти місцем з максимальним
+елементом
+*/
+using System;
+
+class Program
+{
+    static void Main(string[] args)
+    {
+        // Створюємо масив і заповнюємо його випадковими числами
+        int[] arr = new int[10];
+        Random rand = new Random();
+        for (int i = 0; i < arr.Length; i++)
+        {
+            arr[i] = rand.Next(-50, 50);
+        }
+
+        // Виводимо початковий масив на екран
+        Console.WriteLine("Початковий масив:");
+        foreach (int element in arr)
+        {
+            Console.Write(element + " ");
+        }
+        Console.WriteLine();
+
+        // Створюємо об'єкт класу ArrayProcessor і викликаємо метод ProcessArray
+        ArrayProcessor arrayProcessor = new ArrayProcessor(arr);
+        arrayProcessor.ProcessArray();
+
+        // Виводимо змінений масив на екран
+        Console.WriteLine("Змінений масив:");
+        foreach (int element in arr)
+        {
+            Console.Write(element + " ");
+        }
+        Console.WriteLine();
+    }
+}
+
+class ArrayProcessor
+{
+    private int[] arr;
+
+    public ArrayProcessor(int[] arr)
+    {
+        this.arr = arr;
+    }
+
+    public void ProcessArray()
+    {
+        // Знаходимо індекс максимального елемента масиву
+        int maxIndex = 0;
+        for (int i = 1; i < arr.Length; i++)
+        {
+            if (arr[i] > arr[maxIndex])
+            {
+                maxIndex = i;
+            }
+        }
+
+        // Знаходимо індекс останнього від'ємного елемента масиву
+        int lastNegativeIndex = -1;
+        for (int i = arr.Length - 1; i >= 0; i--)
+        {
+            if (arr[i] < 0)
+            {
+                lastNegativeIndex = i;
+                break;
+            }
+        }
+
+        // Якщо в масиві немає від'ємних елементів або максимальний елемент
+        // розташований на останній позиції, нічого не міняємо
+        if (lastNegativeIndex == -1 || maxIndex == arr.Length - 1)
+        {
+            return;
+        }
+
+        // Міняємо місцями останній від'ємний і максимальний елементи масиву
+        int temp = arr[lastNegativeIndex];
+        arr[lastNegativeIndex] = arr[maxIndex];
+        arr[maxIndex] = temp;
+    }
+}
+/*
+Написати програму з використанням методів класу Sistem.Array на C#.
+Створити багатовимірний масив, заповнити його випадковими числами.
+Вивести на екран значення масиву.
+Визначити індекси максимального елемента масиву. 
+Обчислити добуток елементів вище головної діагоналі.
+*/
+using System;
+
+class Program
+{
+    static void Main(string[] args)
+    {
+        // Створення багатовимірного масиву
+        int[,] array = new int[5, 5];
+        
+        // Заповнення масиву випадковими числами
+        Random rnd = new Random();
+        for (int i = 0; i < array.GetLength(0); i++)
+        {
+            for (int j = 0; j < array.GetLength(1); j++)
+            {
+                array[i, j] = rnd.Next(10);
+            }
+        }
+        
+        // Виведення масиву на екран
+        Console.WriteLine("Масив:");
+        for (int i = 0; i < array.GetLength(0); i++)
+        {
+            for (int j = 0; j < array.GetLength(1); j++)
+            {
+                Console.Write(array[i, j] + "\t");
+            }
+            Console.WriteLine();
+        }
+        
+        // Пошук максимального елемента та його індексів
+        int maxElement = (int)Array.GetValue(array, 0, 0);
+        int maxI = 0, maxJ = 0;
+        for (int i = 0; i < array.GetLength(0); i++)
+        {
+            for (int j = 0; j < array.GetLength(1); j++)
+            {
+                int element = (int)Array.GetValue(array, i, j);
+                if (element > maxElement)
+                {
+                    maxElement = element;
+                    maxI = i;
+                    maxJ = j;
+                }
+            }
+        }
+        Console.WriteLine("Максимальний елемент масиву: " + maxElement);
+        Console.WriteLine("Його індекси: [" + maxI + ", " + maxJ + "]");
+        
+        // Обчислення добутку елементів вище головної діагоналі
+        int product = 1;
+        for (int i = 0; i < array.GetLength(0); i++)
+        {
+            for (int j = i + 1; j < array.GetLength(1); j++)
+            {
+                product *= (int)Array.GetValue(array, i, j);
+            }
+        }
+        Console.WriteLine("Добуток елементів вище головної діагоналі: " + product);
+    }
+}
