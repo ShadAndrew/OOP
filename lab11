@@ -1,0 +1,146 @@
+/*
+Створюють змінні рядкових типів, котрі задовольняють умовам варіанту
+завдання відповідно Вашому номеру за журналом..
+Вводять з клавіатури прізвище, ім'я та по батькові.
+Визначають довжину введених рядків.
+Виконують дії відповідно варіанту завдання.
+Виводять результат на екран, додавши до нього коментарі - студент якої
+спеціальності і групи виконав завдання.
+2. Запрограмувати деякий спосіб шифрування тексту. Скласти програму
+для введення тексту, його шифрування, розшифровування та друку результатів.
+*/
+using System;
+
+namespace StringOperations
+{
+    class Student
+    {
+        private string surname {get; set;}
+        private string name {get; set;}
+        private string patronymic {get; set;}
+
+        public void InputName()
+        {
+            Console.Write("Enter surname: ");
+            surname = Console.ReadLine();
+            Console.Write("Enter name: ");
+            name = Console.ReadLine();
+            Console.Write("Enter patronymic: ");
+            patronymic = Console.ReadLine();
+        }
+
+        public void PrintName()
+        {
+            Console.WriteLine($"Name: {surname} {name} {patronymic}");
+        }
+
+        public void CheckLetter()
+        {
+            if (surname.StartsWith("B") || name.StartsWith("B") || patronymic.StartsWith("B"))
+            {
+                Console.WriteLine("At least one of the words starts with the letter 'В'");
+            }
+            else
+            {
+                Console.WriteLine("None of the words start with the letter 'В'");
+            }
+        }
+
+        public void GetStringInfo()
+        {
+            Console.WriteLine($"Length of surname: {surname.Length}");
+            Console.WriteLine($"Length of name: {name.Length}");
+            Console.WriteLine($"Length of patronymic: {patronymic.Length}");
+        }
+    }
+
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Student student = new Student();
+            student.InputName();
+            student.PrintName();
+            student.CheckLetter();
+            student.GetStringInfo();
+            Console.WriteLine("This task was completed by a student of computer science group CS-01");
+            Console.ReadKey();
+        }
+    }
+}
+
+----------------------
+
+using System;
+
+public class VigenereCipher
+{
+    const string defaultAlphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    readonly string letters;
+
+    public VigenereCipher(string alphabet = null)
+    {
+        letters = string.IsNullOrEmpty(alphabet) ? defaultAlphabet : alphabet;
+    }
+
+    //генерування повторюваного пароля
+    private string GetRepeatKey(string s, int n)
+    {
+        var p = s;
+        while (p.Length < n)
+        {
+            p += p;
+        }
+
+        return p.Substring(0, n);
+    }
+
+    private string Vigenere(string text, string password, bool encrypting = true)
+    {
+        var gamma = GetRepeatKey(password, text.Length);
+        var retValue = "";
+        var q = letters.Length;
+
+        for (int i = 0; i < text.Length; i++)
+        {
+            var letterIndex = letters.IndexOf(text[i]);
+            var codeIndex = letters.IndexOf(gamma[i]);
+            if (letterIndex < 0)
+            {
+                //якщо літера не знайдена, додаємо її в незмінному вигляді
+                retValue += text[i].ToString();
+            }
+            else
+            {
+                retValue += letters[(q + letterIndex + ((encrypting ? 1 : -1) * codeIndex)) % q].ToString();
+            }
+        }
+
+        return retValue;
+    }
+
+    //шифрування тексту
+    public string Encrypt(string plainMessage, string password)
+        => Vigenere(plainMessage, password);
+
+    //дешифрування тексту
+    public string Decrypt(string encryptedMessage, string password)
+        => Vigenere(encryptedMessage, password, false);
+}
+
+class Program
+{
+    static void Main(string[] args)
+    {
+        //передаємо в конструктор класу літери українського алфавіту
+        var cipher = new VigenereCipher("АБВГҐДЕЄЖЗИІЇЙКЛМНОПРСТУФХЦЧШЩЬЮЯ");
+        Console.Write("Введіть текст: ");
+        var inputText = Console.ReadLine().ToUpper();
+        Console.Write("Введіть ключ: ");
+        var password = Console.ReadLine().ToUpper();
+        var encryptedText = cipher.Encrypt(inputText, password);
+        Console.WriteLine("Зашифроване повідомлення: {0}", encryptedText);
+        Console.WriteLine("Розшифроване повідомлення: {0}", cipher.Decrypt(encryptedText, password));
+        Console.ReadLine();
+    }
+}
