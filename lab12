@@ -1,0 +1,99 @@
+Створити базовий клас «конус», такий, що:
+a) його екземпляр містить розмір радіусу і висоти.
+b) його конструктор без параметра створює екземпляр зі значенням 0, а
+конструктор з параметрами створює екземпляр з відповідним значенням
+радіусу і висоти.
+c) його властивості дозволяють отримувати і привласнювати значення
+радіуса і висоти і отримувати значення об'єму.
+d) метод ToString() повертає рядок у вигляді повідомлення про значення
+його радіусу, висоти і об'єму.
+e) операція «+» перевантажена: для двох конусів створює новий конус з
+параметрами (r = r1 + r2, h = h1 + h2), а при додаванні з числом змінює
+свій об’єм на цю величину.
+Скласти програму, яка перевіряє виконання перерахованих функцій.
+
+using System;
+
+class Cone
+{
+    private double radius;
+    private double height;
+    private double volume;
+
+    public Cone() // Конструктор без параметрів
+    {
+        radius = 0;
+        height = 0;
+        volume = 0;
+    }
+
+    public Cone(double r, double h) // Конструктор з параметрами
+    {
+        radius = r;
+        height = h;
+        volume = Math.PI * Math.Pow(radius, 2) * height / 3;
+    }
+
+    public double Radius // Властивість радіуса
+    {
+        get { return radius; }
+        set { radius = value; }
+    }
+
+    public double Height // Властивість висоти
+    {
+        get { return height; }
+        set { height = value; }
+    }
+
+    public double Volume // Властивість об'єму
+    {
+        get { return volume; }
+    }
+
+    public override string ToString() // Метод ToString()
+    {
+        return "Радіус: " + radius + "\nВисота: " + height + "\nОб'єм: " + volume;
+    }
+
+    public static Cone operator +(Cone c1, Cone c2) // Перевантаження операції додавання
+    {
+        double r = c1.Radius + c2.Radius;
+        double h = c1.Height + c2.Height;
+        return new Cone(r, h);
+    }
+
+    public static Cone operator +(Cone c, double v) // Перевантаження операції додавання
+    {
+        c.Volume += v;
+        c.Height = 3 * c.Volume / (Math.PI * Math.Pow(c.Radius, 2));
+        return c;
+    }
+}
+
+class Program
+{
+    static void Main(string[] args)
+    {
+        Cone c1 = new Cone(5, 10);
+        Cone c2 = new Cone(3, 7);
+
+        Console.WriteLine("Перший конус:");
+        Console.WriteLine(c1.ToString());
+        Console.WriteLine();
+
+        Console.WriteLine("Другий конус:");
+        Console.WriteLine(c2.ToString());
+        Console.WriteLine();
+
+        Cone c3 = c1 + c2;
+        Console.WriteLine("Третій конус (c1 + c2):");
+        Console.WriteLine(c3.ToString());
+        Console.WriteLine();
+
+        c1 += 5;
+        Console.WriteLine("Перший конус після додавання 5 до об'єму:");
+        Console.WriteLine(c1.ToString());
+        Console.WriteLine();
+    }
+}
